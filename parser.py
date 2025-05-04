@@ -274,6 +274,12 @@ class Parser:
             case Lexemes.FLOATLITERAL:
                 node = FloatLiteral(); node.value = float(self.tokens[self.current].value)
                 return node
+            case Lexemes.TRUE:
+                node = BoolLiteral(); node.value = True
+                return node
+            case Lexemes.FALSE:
+                node = BoolLiteral(); node.value = False
+                return node
             case Lexemes.IDENTIFIER:
                 node = IdentifierNode(); node.name = self.tokens[self.current].value
                 return node

@@ -47,6 +47,8 @@ class Lexemes:
 
     # other
     IDENTIFIER = 'identifier'
+    TRUE = 'trueValue'
+    FALSE = 'falseValue'
 
 keywords = {
     'if': Lexemes.IF,
@@ -56,7 +58,9 @@ keywords = {
     'import': Lexemes.IMPORT,
     'return': Lexemes.RETURN,
     'let': Lexemes.LET,
-    'const': Lexemes.CONST
+    'const': Lexemes.CONST,
+    'true': Lexemes.TRUE,
+    'false': Lexemes.FALSE
 }
 
 symbols = {

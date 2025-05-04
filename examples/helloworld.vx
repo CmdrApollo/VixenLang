@@ -3,3 +3,11 @@
 func sum(x: int, y: int) -> int {
     return x + y;
 }
+
+func main() -> int {
+    let isRunning: bool = true;
+
+    loop (isRunning) {
+        println("Hello, World!");
+    }
+}
