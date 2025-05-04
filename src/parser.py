@@ -8,6 +8,9 @@ class ProgramNode(AstNode):
         self.statements: list[AstNode] = []
     
 class ExpressionNode(AstNode):
+    def __init__(self):
+        self.is_result: bool = False
+
     def pretty(self, tab):
         return ""
 
@@ -64,7 +67,7 @@ class ReturnNode(AstNode):
         self.expression: ExpressionNode = None
 
     def pretty(self, tab):
-        return f"Return:\n{'| '*tab}Expr: {self.expression.pretty(tab+1)}"
+        return f"Return:\n{'| '*tab}Expr: {self.expression.pretty(tab+1) if self.expression else 'none'}"
 
 class IfNode(ExpressionNode):
     def __init__(self):
@@ -118,14 +121,16 @@ class Parser:
         self.tokens: list[Token] = tokens
         self.current: int = 0
 
+        self.errors = []
+
     def parse(self):
         program: ProgramNode = ProgramNode()
 
         while (self.current < len(self.tokens) - 1):
             s = self.parse_statement()
 
-            # if s == None:
-            #     print(self.error_message)
+            if s == None:
+                self.errors.append(self.error_message)
 
             program.statements.append(s)
             
@@ -158,12 +163,20 @@ class Parser:
             e = self.parse_expression()
             return e
         elif tok.token_type == Lexemes.RETURN:
-            self.consume() # consume return
+            next_tok = self.consume() # consume return
             node: ReturnNode = ReturnNode()
+
+            if next_tok.token_type == Lexemes.SEMICOLON:
+                return node
+            
             node.expression = self.parse_expression()
             return node
         else:
             e = self.parse_expression()
+            
+            if e:
+                e.is_result = self.tokens[self.current].token_type != Lexemes.SEMICOLON # is this a result?
+
             return e
 
     def parse_function_declaration(self):
