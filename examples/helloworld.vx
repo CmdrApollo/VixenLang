@@ -1,0 +1,5 @@
+// the basic types in vixen are
+// bool, int, float, char, and string
+func sum(x: int, y: int) -> int {
+    return x + y;
+}
