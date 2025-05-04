@@ -1,4 +1,4 @@
-from lexer import Token, Lexemes
+from .lexer import Token, Lexemes
 
 class AstNode:
     pass

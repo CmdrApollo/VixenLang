@@ -1,4 +1,4 @@
-from lexemes import Lexemes, keywords, symbols
+from .lexemes import Lexemes, keywords, symbols
 
 class Token:
     def __init__(self, token_type: str, value: str = "") -> None:
