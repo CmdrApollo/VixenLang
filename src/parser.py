@@ -123,6 +123,8 @@ class Parser:
 
         self.errors = []
 
+        self.error_message = "error"
+
     def parse(self):
         program: ProgramNode = ProgramNode()
 
